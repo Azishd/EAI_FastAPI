@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\Azi\Desktop\Tugas Azi\Telkom\Tugas\Semester 6\Integrasi Aplikasi Enterprise\FastAPI\venv"
+VIRTUAL_ENV="C:\Users\Lenovo\Documents\EAI\EAI_FastAPI\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
