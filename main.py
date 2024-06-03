@@ -14,7 +14,7 @@ async def read_root():
     return {"Data":"Successful"}
 
 # Model untuk Data Asuransi
-class Asurnasi(BaseModel):
+class Asuransi(BaseModel):
     id_asuransi: str
     jenis_asuransi: str
     biaya_pengganti: str
@@ -30,50 +30,50 @@ data_asuransi = [
     {"id_asuransi": "AA05", "jenis_asuransi": "Asuransi Kesehatan", "biaya_pengganti": "Rp3.000.000", "objek": "-", "keterangan": "Diabetes"},
 ]
 
-# Endpoint untuk menambahkan data wisata
-@app.post("/wisata")
-def tambah_wisata(wisata: Wisata):
-    data_wisata.append(wisata.dict())
-    return {"message": "Data wisata berhasil ditambahkan."}
+# Endpoint untuk menambahkan data asuransi
+@app.post("/asuransi")
+def tambah_asuransi(asuransi: Asuransi):
+    data_asuransi.append(asuransi.dict())
+    return {"message": "Data asuransi berhasil ditambahkan."}
 
-# Endpoint untuk mendapatkan data wisata
-@app.get("/wisata", response_model=List[Wisata])
-def get_wisata():
-    return data_wisata
+# Endpoint untuk mendapatkan data asuransi
+@app.get("/asuransi", response_model=List[Asuransi])
+def get_asuransi():
+    return data_asuransi
 
-def get_wisata_index(id_wisata):
-    for index, wisata in enumerate(data_wisata):
-        if wisata['id_wisata'] == id_wisata:
+def get_asuransi_index(id_asuransi):
+    for index, asuransi in enumerate(data_asuransi):
+        if asuransi['id_asuransi'] == id_asuransi:
             return index
     return None
 
 # Endpoint untuk detail get id
-@app.get("/wisata/{id_wisata}", response_model=Optional[Wisata])
-def get_wisata_by_id(id_wisata: str):
-    for wisata in data_wisata:
-        if wisata['id_wisata'] == id_wisata:
-            return Wisata(**wisata)
+@app.get("/asuransi/{id_asuransi}", response_model=Optional[Asuransi])
+def get_asuransi_by_id(id_asuransi: str):
+    for asuransi in data_asuransi:
+        if asuransi['id_asuransi'] == id_asuransi:
+            return Asuransi(**asuransi)
     return None
 
 # Endpoint untuk memperbarui data wisata dengan hanya memasukkan id_wisata
-@app.put("/wisata/{id_wisata}")
-def update_wisata_by_id(id_wisata: str, wisata_baru: Wisata):
-    index = get_wisata_index(id_wisata)
+@app.put("/asuransi/{id_asuransi}")
+def update_asuransi_by_id(id_asuransi: str, asuransi_baru: Asuransi):
+    index = get_asuransi_index(id_asuransi)
     if index is not None:
-        data_wisata[index] = wisata_baru.dict()
-        return {"message": "Data wisata berhasil diperbarui."}
+        data_asuransi[index] = asuransi_baru.dict()
+        return {"message": "Data asuransi berhasil diperbarui."}
     else:
-        raise HTTPException(status_code=404, detail="Data wisata tidak ditemukan.")
+        raise HTTPException(status_code=404, detail="Data asuransi tidak ditemukan.")
 
 # Endpoint untuk menghapus data wisata
-@app.delete("/wisata/{id_wisata}")
-def delete_wisata(id_wisata: str):
-    index = get_wisata_index(id_wisata)
+@app.delete("/asuransi/{id_asuransi}")
+def delete_asuransi(id_asuransi: str):
+    index = get_asuransi_index(id_asuransi)
     if index is not None:
-        del data_wisata[index]
-        return {"message": "Data wisata berhasil dihapus."}
+        del data_asuransi[index]
+        return {"message": "Data asuransi berhasil dihapus."}
     else:
-        raise HTTPException(status_code=404, detail="Data wisata tidak ditemukan.")
+        raise HTTPException(status_code=404, detail="Data asuransi tidak ditemukan.")
 
 # Fungsi untuk mengambil data pajak dari web hosting lain
 def get_data_pajak_from_web():
@@ -149,16 +149,16 @@ def get_tourGuide_by_id(id_guider: str):
             return TourGuide(**tourGuide)
     return None
 
-# Fungsi untuk mengambil data asuransi dari web hosting lain
-def get_data_asuransi_from_web():
+# Fungsi untuk mengambil data wisata dari web hosting lain
+'''def get_data_wisata_from_web():
     url = "https://example.com/api/pajak"  # Ganti dengan URL yang sebenarnya
     response = requests.get(url)
     if response.status_code == 200:
         return response.json()
     else:
-        raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data ASURANSI dari web hosting.")
+        raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data Wisata dari web hosting.")
 
-# Model untuk Data Asuransi
+# Model untuk Data Wisata
 class Asuransi(BaseModel):
     id_asuransi: int
     nama_wisata: str
@@ -169,7 +169,7 @@ class Asuransi(BaseModel):
 def get_asuransi():
     data_asuransi = get_data_asuransi_from_web()
     return data_asuransi
-
+'''
 # Fungsi untuk mengambil data hotel dari web hosting lain
 def get_data_hotel_from_web():
     url = "https://example.com/api/pajak"  # Ganti dengan URL yang sebenarnya
@@ -267,7 +267,7 @@ class WisataTourGuide(BaseModel):
 def get_combined_data():
     combined_data = combine_wisata_tour_guide()
     return combined_data
-
+'''
 def combine_wisata_asuransi():
     wisata_data = get_wisata()
     asuransi_data = get_asuransi()
@@ -293,7 +293,7 @@ class WisataAsuransi(BaseModel):
 def get_combined_data():
     combined_data = combine_wisata_asuransi()
     return combined_data
-
+'''
 def combine_wisata_hotel():
     wisata_data = get_wisata()
     hotel_data = get_hotel()
