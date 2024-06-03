@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\Users\Azi\Desktop\Tugas Azi\Telkom\Tugas\Semester 6\Integrasi Aplikasi Enterprise\FastAPI\venv
+set VIRTUAL_ENV=C:\Users\Lenovo\Documents\EAI\EAI_FastAPI\venv
 
 if not defined PROMPT set PROMPT=$P$G
 
