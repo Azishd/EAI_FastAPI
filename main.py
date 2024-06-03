@@ -4,8 +4,8 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 app = FastAPI(
-    title="Objek Wisata",
-    description="API untuk mengelola data objek wisata",
+    title="Asuransi",
+    description="API untuk mengelola data Asuransi",
     docs_url="/",  # Ubah docs_url menjadi "/"
 )
 
