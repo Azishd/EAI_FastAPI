@@ -119,14 +119,13 @@ def get_data_tourGuide_from_web():
     if response.status_code == 200:
         return response.json()
     else:
-        raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data TOUR GUIDE dari web hosting.")
+        raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data Tour Guide dari web hosting.")
 
 # Model untuk Data Tour Guide
 class TourGuide(BaseModel):
     id_guider:str
     nama_guider: str
-    profile: str
-    fee: int
+    nama_daerah: str
 
 # Endpoint untuk mendapatkan data Tour Guide
 @app.get("/tourGuide", response_model=List[TourGuide])
@@ -177,7 +176,7 @@ def get_data_hotel_from_web():
     if response.status_code == 200:
         return response.json()
     else:
-        raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data HOTEL dari web hosting.")
+        raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data Hotel dari web hosting.")
 
 # Model untuk Data Hotel
 class Hotel(BaseModel):
