@@ -132,23 +132,22 @@ class TourGuide(BaseModel):
 # Endpoint untuk mendapatkan data Tour Guide
 @app.get("/tourGuide", response_model=List[TourGuide])
 def get_tourGuide():
-    data_tourGuide = get_data_tourGuide_from_web()
-    return data_tourGuide
-
-def get_tourGuide_index(id_guider):
-    data_tourGuide = get_data_tourGuide_from_web()
-    for index, tourGuide in enumerate(data_tourGuide):
-        if tourGuide['id_guider'] == id_guider:
-            return index
-    return None
+    try:
+        data_tourGuide = get_data_tourGuide_from_web()
+        return data_tourGuide
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/tourGuide/{id_guider}", response_model=Optional[TourGuide])
 def get_tourGuide_by_id(id_guider: str):
-    data_tourGuide = get_data_tourGuide_from_web()
-    for tourGuide in data_tourGuide:
-        if tourGuide['id_guider'] == id_guider:
-            return TourGuide(**tourGuide)
-    return None
+    try:
+        data_tourGuide = get_data_tourGuide_from_web()
+        for tourGuide in data_tourGuide:
+            if tourGuide['id_guider'] == id_guider:
+                return TourGuide(**tourGuide)
+        return None
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 # Fungsi untuk mengambil data wisata dari web hosting lain
 '''def get_data_wisata_from_web():
