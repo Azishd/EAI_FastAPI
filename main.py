@@ -78,7 +78,7 @@ def delete_asuransi(id_asuransi: str):
         raise HTTPException(status_code=404, detail="Data asuransi tidak ditemukan.")
 
 # Fungsi untuk mengambil data Goverment dari web hosting lain
-def get_data_goverment_from_web():
+def get_data_pajak_from_web():
     url = "https://api-government.onrender.com/"  # Ganti dengan URL yang sebenarnya
     response = requests.get(url)
     if response.status_code == 200:
