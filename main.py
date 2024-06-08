@@ -77,20 +77,20 @@ def delete_asuransi(id_asuransi: str):
     else:
         raise HTTPException(status_code=404, detail="Data asuransi tidak ditemukan.")
 
-# Fungsi untuk mengambil data pajak dari web hosting lain
-def get_data_pajak_from_web():
+# Fungsi untuk mengambil data Goverment dari web hosting lain
+def get_data_goverment_from_web():
     url = "https://example.com/api/pajak"  # Ganti dengan URL yang sebenarnya
     response = requests.get(url)
     if response.status_code == 200:
         return response.json()
     else:
-        raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data PAJAK dari web hosting.")
+        raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data Goverment dari web hosting.")
 
 # Model untuk Data Pajak
 class Pajak(BaseModel):
-    id_pajak: int
-    jenis_pajak: str
-    tarif_pajak: float
+    NIK: int
+    Nama: str
+    Provinsi: str
     besar_pajak: float
 
 # Endpoint untuk mendapatkan data pajak
@@ -117,7 +117,7 @@ def get_pajak_by_id(id_pajak: int):
 # Fungsi untuk mengambil data 
 # guide dari web hosting lain
 def get_data_tourGuide_from_web():
-    url = "https://tour-guide-ks4n.onrender.com/tourguide"  # Ganti dengan URL yang sebenarnya
+    url = "https://tour-guide-ks4n.onrender.com"  # Ganti dengan URL yang sebenarnya
     response = requests.get(url)
     if response.status_code == 200:
         return response.json()
@@ -128,7 +128,6 @@ def get_data_tourGuide_from_web():
 class TourGuide(BaseModel):
     id_guider:str
     nama_guider: str
-    nama_daerah: str
 
 # Endpoint untuk mendapatkan data Tour Guide
 @app.get("/tourGuide", response_model=List[TourGuide])
