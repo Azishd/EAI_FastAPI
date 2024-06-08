@@ -79,7 +79,7 @@ def delete_asuransi(id_asuransi: str):
 
 # Fungsi untuk mengambil data Goverment dari web hosting lain
 def get_data_goverment_from_web():
-    url = "https://example.com/api/pajak"  # Ganti dengan URL yang sebenarnya
+    url = "https://api-government.onrender.com/"  # Ganti dengan URL yang sebenarnya
     response = requests.get(url)
     if response.status_code == 200:
         return response.json()
@@ -88,9 +88,7 @@ def get_data_goverment_from_web():
 
 # Model untuk Data Pajak
 class Pajak(BaseModel):
-    NIK: int
-    Nama: str
-    Provinsi: str
+    id_pajak: str
     besar_pajak: float
 
 # Endpoint untuk mendapatkan data pajak
@@ -107,7 +105,7 @@ def get_pajak_index(id_pajak):
     return None
 
 @app.get("/pajak/{id_pajak}", response_model=Optional[Pajak])
-def get_pajak_by_id(id_pajak: int):
+def get_pajak_by_id(id_pajak: str):
     data_pajak = get_data_pajak_from_web()
     for pajak in data_pajak:
         if pajak['id_pajak'] == id_pajak:
@@ -116,12 +114,6 @@ def get_pajak_by_id(id_pajak: int):
 
 # Fungsi untuk mengambil data 
 # guide dari web hosting lain
-
-# Model untuk Data Tour Guide
-class TourGuide(BaseModel):
-    id_guider:str
-    nama_guider: str
-
 def get_data_tourGuide_from_web():
     url = "https://tour-guide-ks4n.onrender.com"  # Ganti dengan URL yang sebenarnya
     response = requests.get(url)
@@ -129,6 +121,11 @@ def get_data_tourGuide_from_web():
         return response.json()
     else:
         raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data Tour Guide dari web hosting.")
+
+# Model untuk Data Tour Guide
+class TourGuide(BaseModel):
+    id_guider:str
+    nama_guider: str
 
 # Endpoint untuk mendapatkan data Tour Guide
 @app.get("/tourGuide", response_model=List[TourGuide])
