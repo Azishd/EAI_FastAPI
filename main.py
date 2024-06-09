@@ -120,7 +120,7 @@ class TourGuide(BaseModel):
 # Fungsi untuk mengambil data 
 # guide dari web hosting lain
 def get_data_tourGuide_from_web():
-    url = "https://tour-guide-ks4n.onrender.com"  # Ganti dengan URL yang sebenarnya
+    url = "https://tour-guide-ks4n.onrender.com/tourguide"  # Ganti dengan URL yang sebenarnya
     response = requests.get(url)
     if response.status_code == 200:
         data=response.json()
@@ -129,7 +129,7 @@ def get_data_tourGuide_from_web():
         raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data Tour Guide dari web hosting.")
 
 # Endpoint untuk mendapatkan data Tour Guide
-@app.get("/tourGuide", response_model=List[TourGuide])
+@app.get("/tourguide", response_model=List[TourGuide])
 def get_tourGuide():
     data_tourGuide = get_data_tourGuide_from_web()
     return data_tourGuide
@@ -141,7 +141,7 @@ def get_tourGuide_index(id_guider):
             return index
     return None
 
-@app.get("/tourGuide/{id_guider}", response_model=Optional[TourGuide])
+@app.get("/tourguide/{id_guider}", response_model=Optional[TourGuide])
 def get_tourGuide_by_id(id_guider: str):
     data_tourGuide = get_data_tourGuide_from_web()
     for tourGuide in data_tourGuide:
