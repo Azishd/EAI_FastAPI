@@ -112,20 +112,21 @@ def get_pajak_by_id(id_pajak: str):
             return Pajak(**pajak)
     return None
 
+# Model untuk Data Tour Guide
+class TourGuide(BaseModel):
+    id_guider:str
+    nama_guider: str
+
 # Fungsi untuk mengambil data 
 # guide dari web hosting lain
 def get_data_tourGuide_from_web():
     url = "https://tour-guide-ks4n.onrender.com"  # Ganti dengan URL yang sebenarnya
     response = requests.get(url)
     if response.status_code == 200:
-        return response.json()
+        data=response.json()
+        return [TourGuide(**item) for item in data]
     else:
         raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data Tour Guide dari web hosting.")
-
-# Model untuk Data Tour Guide
-class TourGuide(BaseModel):
-    id_guider:str
-    nama_guider: str
 
 # Endpoint untuk mendapatkan data Tour Guide
 @app.get("/tourGuide", response_model=List[TourGuide])
