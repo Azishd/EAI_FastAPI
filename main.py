@@ -19,17 +19,17 @@ class Asuransi(BaseModel):
     tanggal_mulai_asuransi : str
     tanggal_selesai_asuransi : str
     jenis_asuransi: str
-    biaya_pengganti: str
+    premi: str
     objek : str
     keterangan: str
 
 # Dummy data untuk asuransi
 data_asuransi = [
-    {"id_asuransi": "AA01", "tanggal_mulai_asuransi": "12-09-2023", "tanggal_selesai_asuransi": "12-09-2024", "jenis_asuransi": "Asuransi Kesehatan", "biaya_pengganti": "Rp5.000.000", "objek": "-", "keterangan": "Stroke"},
-    {"id_asuransi": "AA02", "tanggal_mulai_asuransi": "11-06-2023", "tanggal_selesai_asuransi": "11-06-2024", "jenis_asuransi": "Asuransi kendaraan", "biaya_pengganti": "Rp15.000.000", "objek": "Mobil", "keterangan": "body rusak"},
-    {"id_asuransi": "AA03", "tanggal_mulai_asuransi": "05-05-2023", "tanggal_selesai_asuransi": "05-07-2024", "jenis_asuransi": "Asuransi Kesehatan", "biaya_pengganti": "Rp5.000.000", "objek": "-", "keterangan": "Kaki patah"},
-    {"id_asuransi": "AA04", "tanggal_mulai_asuransi": "20-10-2023", "tanggal_selesai_asuransi": "20-10-2024", "jenis_asuransi": "Asuransi Kerusakan", "biaya_pengganti": "Rp8.000.000", "objek": "Furniture", "keterangan": "Kasur rusak"},
-    {"id_asuransi": "AA05", "tanggal_mulai_asuransi": "21-11-2023", "tanggal_selesai_asuransi": "21-11-2024", "jenis_asuransi": "Asuransi Kesehatan", "biaya_pengganti": "Rp3.000.000", "objek": "-", "keterangan": "Diabetes"},
+    {"id_asuransi": "AA01", "tanggal_mulai_asuransi": "12-09-2023", "tanggal_selesai_asuransi": "12-09-2024", "jenis_asuransi": "Asuransi Kesehatan", "premi": "Rp5.000.000", "objek": "-", "keterangan": "Stroke"},
+    {"id_asuransi": "AA02", "tanggal_mulai_asuransi": "11-06-2023", "tanggal_selesai_asuransi": "11-06-2024", "jenis_asuransi": "Asuransi kendaraan", "premi": "Rp15.000.000", "objek": "Mobil", "keterangan": "body rusak"},
+    {"id_asuransi": "AA03", "tanggal_mulai_asuransi": "05-05-2023", "tanggal_selesai_asuransi": "05-07-2024", "jenis_asuransi": "Asuransi Kesehatan", "premi": "Rp5.000.000", "objek": "-", "keterangan": "Kaki patah"},
+    {"id_asuransi": "AA04", "tanggal_mulai_asuransi": "20-10-2023", "tanggal_selesai_asuransi": "20-10-2024", "jenis_asuransi": "Asuransi Kerusakan", "premi": "Rp8.000.000", "objek": "Furniture", "keterangan": "Kasur rusak"},
+    {"id_asuransi": "AA05", "tanggal_mulai_asuransi": "21-11-2023", "tanggal_selesai_asuransi": "21-11-2024", "jenis_asuransi": "Asuransi Kesehatan", "premi": "Rp3.000.000", "objek": "-", "keterangan": "Diabetes"},
 ]
 
 # Endpoint untuk menambahkan data asuransi
