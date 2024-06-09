@@ -19,17 +19,17 @@ class Asuransi(BaseModel):
     tanggal_mulai_asuransi : str
     tanggal_selesai_asuransi : str
     jenis_asuransi: str
-    biaya_pengganti: str
+    premi: str
     objek : str
     keterangan: str
 
 # Dummy data untuk asuransi
 data_asuransi = [
-    {"id_asuransi": "AA01", "tanggal_mulai_asuransi": "12-09-2023", "tanggal_selesai_asuransi": "12-09-2024", "jenis_asuransi": "Asuransi Kesehatan", "biaya_pengganti": "Rp5.000.000", "objek": "-", "keterangan": "Stroke"},
-    {"id_asuransi": "AA02", "tanggal_mulai_asuransi": "11-06-2023", "tanggal_selesai_asuransi": "11-06-2024", "jenis_asuransi": "Asuransi kendaraan", "biaya_pengganti": "Rp15.000.000", "objek": "Mobil", "keterangan": "body rusak"},
-    {"id_asuransi": "AA03", "tanggal_mulai_asuransi": "05-05-2023", "tanggal_selesai_asuransi": "05-07-2024", "jenis_asuransi": "Asuransi Kesehatan", "biaya_pengganti": "Rp5.000.000", "objek": "-", "keterangan": "Kaki patah"},
-    {"id_asuransi": "AA04", "tanggal_mulai_asuransi": "20-10-2023", "tanggal_selesai_asuransi": "20-10-2024", "jenis_asuransi": "Asuransi Kerusakan", "biaya_pengganti": "Rp8.000.000", "objek": "Furniture", "keterangan": "Kasur rusak"},
-    {"id_asuransi": "AA05", "tanggal_mulai_asuransi": "21-11-2023", "tanggal_selesai_asuransi": "21-11-2024", "jenis_asuransi": "Asuransi Kesehatan", "biaya_pengganti": "Rp3.000.000", "objek": "-", "keterangan": "Diabetes"},
+    {"id_asuransi": "AA01", "tanggal_mulai_asuransi": "12-09-2023", "tanggal_selesai_asuransi": "12-09-2024", "jenis_asuransi": "Asuransi Kesehatan", "premi": "Rp5.000.000", "objek": "-", "keterangan": "Stroke"},
+    {"id_asuransi": "AA02", "tanggal_mulai_asuransi": "11-06-2023", "tanggal_selesai_asuransi": "11-06-2024", "jenis_asuransi": "Asuransi kendaraan", "premi": "Rp15.000.000", "objek": "Mobil", "keterangan": "body rusak"},
+    {"id_asuransi": "AA03", "tanggal_mulai_asuransi": "05-05-2023", "tanggal_selesai_asuransi": "05-07-2024", "jenis_asuransi": "Asuransi Kesehatan", "premi": "Rp5.000.000", "objek": "-", "keterangan": "Kaki patah"},
+    {"id_asuransi": "AA04", "tanggal_mulai_asuransi": "20-10-2023", "tanggal_selesai_asuransi": "20-10-2024", "jenis_asuransi": "Asuransi Kerusakan", "premi": "Rp8.000.000", "objek": "Furniture", "keterangan": "Kasur rusak"},
+    {"id_asuransi": "AA05", "tanggal_mulai_asuransi": "21-11-2023", "tanggal_selesai_asuransi": "21-11-2024", "jenis_asuransi": "Asuransi Kesehatan", "premi": "Rp3.000.000", "objek": "-", "keterangan": "Diabetes"},
 ]
 
 # Endpoint untuk menambahkan data asuransi
@@ -112,23 +112,24 @@ def get_pajak_by_id(id_pajak: str):
             return Pajak(**pajak)
     return None
 
-# Fungsi untuk mengambil data 
-# guide dari web hosting lain
-def get_data_tourGuide_from_web():
-    url = "https://tour-guide-ks4n.onrender.com"  # Ganti dengan URL yang sebenarnya
-    response = requests.get(url)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data Tour Guide dari web hosting.")
-
 # Model untuk Data Tour Guide
 class TourGuide(BaseModel):
     id_guider:str
     nama_guider: str
 
+# Fungsi untuk mengambil data 
+# guide dari web hosting lain
+def get_data_tourGuide_from_web():
+    url = "https://tour-guide-ks4n.onrender.com/tourguide"  # Ganti dengan URL yang sebenarnya
+    response = requests.get(url)
+    if response.status_code == 200:
+        data=response.json()
+        return [TourGuide(**item) for item in data]
+    else:
+        raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data Tour Guide dari web hosting.")
+
 # Endpoint untuk mendapatkan data Tour Guide
-@app.get("/tourGuide", response_model=List[TourGuide])
+@app.get("/tourguide", response_model=List[TourGuide])
 def get_tourGuide():
     data_tourGuide = get_data_tourGuide_from_web()
     return data_tourGuide
@@ -140,7 +141,7 @@ def get_tourGuide_index(id_guider):
             return index
     return None
 
-@app.get("/tourGuide/{id_guider}", response_model=Optional[TourGuide])
+@app.get("/tourguide/{id_guider}", response_model=Optional[TourGuide])
 def get_tourGuide_by_id(id_guider: str):
     data_tourGuide = get_data_tourGuide_from_web()
     for tourGuide in data_tourGuide:
