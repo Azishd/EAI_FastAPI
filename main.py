@@ -77,6 +77,31 @@ def delete_asuransi(id_asuransi: str):
     else:
         raise HTTPException(status_code=404, detail="Data asuransi tidak ditemukan.")
 
+# Model untuk Data Penduduk 
+class Government(BaseModel):
+    nik: int
+    nama: str
+    provinsi: str
+    kota: str
+    kecamatan: str
+    desa: str
+
+# data dari web hosting lain
+def get_data_Government_from_web():
+    url = "https://api-government.onrender.com/penduduk"  # Ganti dengan URL yang sebenarnya
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        return [Government(**item) for item in data]
+    else:
+        raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data penduduk dari web hosting.")
+
+# Endpoint untuk mendapatkan data penduduk
+@app.get("/penduduk", response_model=List[Government])
+def get_Government():
+    data_Government = get_data_Government_from_web()
+    return data_Government
+
 # Fungsi untuk mengambil data Goverment dari web hosting lain
 def get_data_pajak_from_web():
     url = "https://api-government.onrender.com/"  # Ganti dengan URL yang sebenarnya
