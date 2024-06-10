@@ -166,14 +166,6 @@ def get_tourGuide_index(id_guider):
             return index
     return None
 
-@app.get("/tourguide/{id_guider}", response_model=Optional[TourGuide])
-def get_tourGuide_by_id(id_guider: str):
-    data_tourGuide = get_data_tourGuide_from_web()
-    for tourGuide in data_tourGuide:
-        if tourGuide['id_guider'] == id_guider:
-            return TourGuide(**tourGuide)
-    return None
-
 # Fungsi untuk mengambil data wisata dari web hosting lain
 '''def get_data_wisata_from_web():
     url = "https://example.com/api/pajak"  # Ganti dengan URL yang sebenarnya
@@ -195,6 +187,14 @@ def get_asuransi():
     data_asuransi = get_data_asuransi_from_web()
     return data_asuransi
 '''
+# Model untuk Data Hotel
+class Hotel(BaseModel):
+    id_room: int
+    room_number: int
+    room_type: str
+    rate: str
+    availability: int
+
 # Fungsi untuk mengambil data hotel dari web hosting lain
 def get_data_hotel_from_web():
     url = "https://example.com/api/pajak"  # Ganti dengan URL yang sebenarnya
@@ -203,14 +203,6 @@ def get_data_hotel_from_web():
         return response.json()
     else:
         raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data Hotel dari web hosting.")
-
-# Model untuk Data Hotel
-class Hotel(BaseModel):
-    id_room: int
-    room_number: int
-    room_type: str
-    rate: str
-    availability: int
 
 # Endpoint untuk mendapatkan data hotel
 @app.get("/hotel", response_model=List[Hotel])
@@ -267,30 +259,28 @@ def get_combined_data():
     combined_data = combine_wisata_pajak()
     return combined_data
 
-def combine_wisata_tour_guide():
-    wisata_data = get_wisata()
-    tour_guide_data = get_tourGuide()
+class asuransiTourGuide(BaseModel):
+    id_guider : str
+    nama_guider : str
+
+def combine_asuransi_tour_guide():
+    data_asuransi = get_asuransi()
+    data_tourGuide = get_tourGuide()
 
     combined_data = []
-    for wisata in wisata_data:
-        for tour_guide in tour_guide_data:
+    for Asuransi in data_asuransi:
+        for tour_guide in data_tourGuide:
             combined_obj = {
-                "id_wisata": wisata['id_wisata'],
-                "nama_objek": wisata['nama_objek'],
-                "tour_guide": tour_guide
+                "id_guider": id_guider['id_guider'],
+                "nama_guider": nama_guider['nama_guider'],
             }
             combined_data.append(combined_obj)
 
     return combined_data
 
-class WisataTourGuide(BaseModel):
-    id_wisata: str
-    nama_objek: str
-    tour_guide: TourGuide
-
-@app.get("/wisataTourGuide", response_model=List[WisataTourGuide])
+@app.get("/asuransiTourGuide", response_model=List[asuransiTourGuide])
 def get_combined_data():
-    combined_data = combine_wisata_tour_guide()
+    combined_data = combine_asuransi_tour_guide()
     return combined_data
 '''
 def combine_wisata_asuransi():
