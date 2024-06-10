@@ -187,6 +187,32 @@ def get_asuransi():
     data_asuransi = get_data_asuransi_from_web()
     return data_asuransi
 '''
+# Model untuk Data Tour Guide
+class Mobil(BaseModel):
+    id_mobil:str
+    merek: str
+    model: str
+    tipe_mobil: str
+    nomor_polisi: str
+
+# Fungsi untuk mengambil data 
+# guide dari web hosting lain
+def get_data_Mobil_from_web():
+    url = "https://rental-mobil-api.onrender.com/mobil"  # Ganti dengan URL yang sebenarnya
+    response = requests.get(url)
+    if response.status_code == 200:
+        data=response.json()
+        return [Mobil(**item) for item in data]
+    else:
+        raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data Mobil dari web hosting.")
+
+# Endpoint untuk mendapatkan data Tour Guide
+@app.get("/mobil", response_model=List[Mobil])
+def get_Mobil():
+    data_Mobil = get_data_Mobil_from_web()
+    return data_Mobil
+
+
 # Model untuk Data Hotel
 class Hotel(BaseModel):
     id_room: int
