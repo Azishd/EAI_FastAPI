@@ -250,15 +250,11 @@ def get_Mobil_by_id(id_mobil: str):
 
 # Model untuk Data Hotel
 class Hotel(BaseModel):
-    id_room: int
-    room_number: int
-    room_type: str
-    rate: str
-    availability: int
+    RoomID: str
 
 # Fungsi untuk mengambil data hotel dari web hosting lain
 def get_data_hotel_from_web():
-    url = "https://hotelbaru.onrender.com"  # Ganti dengan URL yang sebenarnya
+    url = "https://hotelbaru.onrender.com/reservations"  # Ganti dengan URL yang sebenarnya
     response = requests.get(url)
     if response.status_code == 200:
         return response.json()
@@ -270,6 +266,13 @@ def get_data_hotel_from_web():
 def get_hotel():
     data_hotel = get_data_hotel_from_web()
     return data_hotel
+
+def get_Hotel_index(RoomID):
+    data_hotel = get_data_hotel_from_web()
+    for index, hotel in enumerate(data_hotel):
+        if hotel['RoomID'] == RoomID:
+            return index
+    return None
 
 # Fungsi untuk mengambil data bank dari web hosting lain
 # def get_data_bank_from_web():
@@ -416,16 +419,18 @@ def get_combined_data():
     combined_data = combine_asuransi_tour_guide()
     return combined_data
 
-def combine_wisata_hotel():
-    wisata_data = get_wisata()
-    hotel_data = get_hotel()
+def combine_asuransi_hotel():
+    data_asuransi = get_asuransi()
+    data_hotel = get_hotel()
 
     combined_data = []
-    for wisata in wisata_data:
-        for hotel in hotel_data:
+    for asuransi in data_asuransi:
+        for hotel in data_hotel:
             combined_obj = {
-                "id_wisata": wisata['id_wisata'],
-                "nama_objek": wisata['nama_objek'],
+                "id_asuransi": asuransi['id_asuransi'],
+                "jenis_asuransi": asuransi['jenis_asuransi'],
+                "premi": asuransi['premi'],
+                "keterangan": asuransi['keterangan'],
                 "hotel": hotel
             }
             combined_data.append(combined_obj)
@@ -433,13 +438,15 @@ def combine_wisata_hotel():
     return combined_data
 
 class AsuransiHotel(BaseModel):
-    id_wisata: str
-    nama_objek: str
-    hotel: Hotel
+    id_asuransi: str
+    jenis_asuransi: str
+    premi: str
+    keterangan: str
+    hotel : Hotel
 
 @app.get("/asuransiHotel", response_model=List[AsuransiHotel])
 def get_combined_data():
-    combined_data = combine_wisata_hotel()
+    combined_data = combine_asuransi_hotel()
     return combined_data
 
 def combine_wisata_bank():
