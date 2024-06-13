@@ -203,7 +203,7 @@ def get_Mobil_index(id_mobil):
             return index
     return None
 
-@app.get("/mobil/{id_guider}", response_model=Optional[Mobil])
+@app.get("/mobil/{id_mobil}", response_model=Optional[Mobil])
 def get_Mobil_by_id(id_mobil: str):
     data_Mobil = get_data_Mobil_from_web()
     for mobil in data_Mobil:
