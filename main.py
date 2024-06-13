@@ -221,27 +221,88 @@ def get_hotel():
     return data_hotel
 
 # Fungsi untuk mengambil data bank dari web hosting lain
-def get_data_bank_from_web():
-    url = "https://jumantaradev.my.id/tabungan"  # Ganti dengan URL yang sebenarnya
-    response = requests.get(url)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data Bank dari web hosting.")
+# def get_data_bank_from_web():
+#     url = "https://jumantaradev.my.id/tabungan"  # Ganti dengan URL yang sebenarnya
+#     response = requests.get(url)
+#     if response.status_code == 200:
+#         return response.json()
+#     else:
+#         raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data Bank dari web hosting.")
 
-# Model untuk Data Bank
+# # Model untuk Data Bank
+# class Bank(BaseModel):
+#     id_rekeneing: int
+#     saldo: int
+#     activate_date: str
+#     kabupaten: str
+
+# # Endpoint untuk mendapatkan data bank
+# @app.get("/bank", response_model=List[Bank])
+# def get_bank():
+#     data_bank = get_data_bank_from_web()
+#     return data_bank
+
+# Model untuk Data Asuransi
 class Bank(BaseModel):
-    id_rekeneing: int
-    saldo: int
-    activate_date: str
-    kabupaten: str
+    id_asuransi: int
+    id_bayar : int
+    nama : str
+    kategori: str
+    jumlah: int
+
+# Dummy data untuk asuransi-bank
+data_bank = [
+    {"id_asuransi": 116, "id_bayar": 201, "kategori": "Kendaraan", "jumlah": 60},
+    {"id_asuransi": 117, "id_bayar": 202, "kategori": "Furniture", "jumlah": 60},
+    {"id_asuransi": 118, "id_bayar": 203, "kategori": "Kendaraan", "jumlah": 50},
+    {"id_asuransi": 119, "id_bayar": 204, "kategori": "Kesehatan", "jumlah": 10},
+    {"id_asuransi": 120, "id_bayar": 205, "kategori": "Kesehatan", "jumlah": 10},
+]
+
+# Endpoint untuk menambahkan data asuransi-bank
+@app.post("/bank")
+def tambah_asuransi(bank: Bank):
+    data_bank.append(bank.dict())
+    return {"message": "Data bank berhasil ditambahkan."}
 
 # Endpoint untuk mendapatkan data bank
 @app.get("/bank", response_model=List[Bank])
 def get_bank():
-    data_bank = get_data_bank_from_web()
     return data_bank
 
+def get_bank_index(id_bank):
+    for index, bank in enumerate(data_bank):
+        if bank['id_asuransi'] == id_bank:
+            return index
+    return None
+
+# Endpoint untuk detail get id
+@app.get("/bank/{id_asuransi}", response_model=Optional[Bank])
+def get_bank_by_id(id_asuransi: int):
+    for bank in data_bank:
+        if bank['id_asuransi'] == id_asuransi:
+            return bank(**bank)
+    return None
+
+# Endpoint untuk memperbarui data wisata dengan hanya memasukkan id_wisata
+@app.put("/bank/{id_asuransi}")
+def update_bank_by_id(id_asuransi: str, bank_baru: Bank):
+    index = get_bank_index(id_asuransi)
+    if index is not None:
+        data_bank[index] = bank_baru.dict()
+        return {"message": "Data bank berhasil diperbarui."}
+    else:
+        raise HTTPException(status_code=404, detail="Data bank tidak ditemukan.")
+
+# Endpoint untuk menghapus data wisata
+@app.delete("/bank/{id_bank}")
+def delete_bank(id_asuransi: str):
+    index = get_bank_index(id_asuransi)
+    if index is not None:
+        del data_bank[index]
+        return {"message": "Data bank berhasil dihapus."}
+    else:
+        raise HTTPException(status_code=404, detail="Data bank tidak ditemukan.")
 
 def combine_wisata_pajak():
     wisata_data = get_wisata()
