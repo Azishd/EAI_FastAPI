@@ -88,7 +88,7 @@ class Government(BaseModel):
 
 # data dari web hosting lain
 def get_data_Government_from_web():
-    url = "https://api-government.onrender.com/penduduk"  # Ganti dengan URL yang sebenarnya
+    url = "https://api-government.onrender.com/pendudukasuransi"  # Ganti dengan URL yang sebenarnya
     response = requests.get(url)
     if response.status_code == 200:
         return response.json()
@@ -96,13 +96,13 @@ def get_data_Government_from_web():
         raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data penduduk dari web hosting.")
 
 # Endpoint untuk mendapatkan data penduduk
-@app.get("/penduduk", response_model=List[Government])
+@app.get("/pendudukasuransi", response_model=List[Government])
 def get_Government():
     data_Government = get_data_Government_from_web()
     return data_Government
 
 # Mengambil data spesifik dengan NIK
-@app.get("/penduduk/{nik}", response_model=Optional[Government])
+@app.get("/pendudukasuransi/{nik}", response_model=Optional[Government])
 def get_penduduk_by_nik(nik: int):
     data_Government = get_data_Government_from_web()
     for government in data_Government:
