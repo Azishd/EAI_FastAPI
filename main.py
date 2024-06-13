@@ -148,21 +148,20 @@ def get_data_tourGuide_from_web():
     url = "https://tour-guide-ks4n.onrender.com/tourguide"  # Ganti dengan URL yang sebenarnya
     response = requests.get(url)
     if response.status_code == 200:
-        data=response.json()
-        return [TourGuide(**item) for item in data]
+        return response.json()
     else:
         raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data Tour Guide dari web hosting.")
 
 # Endpoint untuk mendapatkan data Tour Guide
 @app.get("/tourguide", response_model=List[TourGuide])
 def get_tourGuide():
-    data_tourGuide = get_data_tourGuide_from_web()
-    return data_tourGuide
+    data_tourguide = get_data_tourGuide_from_web()
+    return data_tourguide
 
 def get_tourGuide_index(id_guider):
-    data_tourGuide = get_data_tourGuide_from_web()
-    for index, tourGuide in enumerate(data_tourGuide):
-        if tourGuide['id_guider'] == id_guider:
+    data_tourguide = get_data_tourGuide_from_web()
+    for index, tourguide in enumerate(data_tourguide):
+        if tourguide['id_guider'] == id_guider:
             return index
     return None
 
