@@ -222,7 +222,7 @@ def get_hotel():
 
 # Fungsi untuk mengambil data bank dari web hosting lain
 def get_data_bank_from_web():
-    url = "https://jumantaradev.my.id/"  # Ganti dengan URL yang sebenarnya
+    url = "https://jumantaradev.my.id/tabungan"  # Ganti dengan URL yang sebenarnya
     response = requests.get(url)
     if response.status_code == 200:
         return response.json()
