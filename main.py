@@ -223,7 +223,7 @@ class Hotel(BaseModel):
 
 # Fungsi untuk mengambil data hotel dari web hosting lain
 def get_data_hotel_from_web():
-    url = "https://example.com/api/pajak"  # Ganti dengan URL yang sebenarnya
+    url = "https://hotelbaru.onrender.com"  # Ganti dengan URL yang sebenarnya
     response = requests.get(url)
     if response.status_code == 200:
         return response.json()
