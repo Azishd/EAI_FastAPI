@@ -297,17 +297,19 @@ def get_combined_data():
 class asuransiTourGuide(BaseModel):
     id_guider : str
     nama_guider : str
+    asuransi : Asuransi
 
 def combine_asuransi_tour_guide():
     data_asuransi = get_asuransi()
     data_tourGuide = get_tourGuide()
 
     combined_data = []
-    for Asuransi in data_asuransi:
+    for asuransi in data_asuransi:
         for tour_guide in data_tourGuide:
             combined_obj = {
-                "id_guider": id_guider['id_guider'],
-                "nama_guider": nama_guider['nama_guider'],
+                "id_guider": tour_guide['id_guider'],
+                "nama_guider": tour_guide['nama_guider'],
+                "asuransi" : asuransi
             }
             combined_data.append(combined_obj)
 
@@ -315,7 +317,7 @@ def combine_asuransi_tour_guide():
 
 @app.get("/asuransiTourGuide", response_model=List[asuransiTourGuide])
 def get_combined_data():
-    combined_data = combine_asuransi_tour_guide()
+    combined_data = asuransiTourGuide()
     return combined_data
 '''
 def combine_wisata_asuransi():
