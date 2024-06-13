@@ -212,7 +212,7 @@ def get_objekwisata_by_id(id_wisata: str):
 
 
 
-# Model untuk Data Tour Guide
+# Model untuk Data Mobil
 class Mobil(BaseModel):
     id_mobil:str
     
@@ -226,7 +226,7 @@ def get_data_Mobil_from_web():
     else:
         raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data Mobil dari web hosting.")
 
-# Endpoint untuk mendapatkan data Tour Guide
+# Endpoint untuk mendapatkan data Mobil
 @app.get("/mobil", response_model=List[Mobil])
 def get_Mobil():
     data_Mobil = get_data_Mobil_from_web()
