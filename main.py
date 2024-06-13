@@ -172,28 +172,6 @@ def get_tourguide_by_id(id_guider: str):
             return TourGuide(**tourguide)
     return None
 
-
-# Fungsi untuk mengambil data wisata dari web hosting lain
-'''def get_data_wisata_from_web():
-    url = "https://example.com/api/pajak"  # Ganti dengan URL yang sebenarnya
-    response = requests.get(url)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data Wisata dari web hosting.")
-
-# Model untuk Data Wisata
-class Asuransi(BaseModel):
-    id_asuransi: int
-    nama_wisata: str
-    nama_daerah: str
-
-# Endpoint untuk mendapatkan data asuransi
-@app.get("/asuransi", response_model=List[Asuransi])
-def get_asuransi():
-    data_asuransi = get_data_asuransi_from_web()
-    return data_asuransi
-'''
 # Model untuk Data Tour Guide
 class Mobil(BaseModel):
     id_mobil:str
@@ -320,33 +298,7 @@ class asuransiTourGuide(BaseModel):
 def get_combined_data():
     combined_data = combine_asuransi_tour_guide()
     return combined_data
-'''
-def combine_wisata_asuransi():
-    wisata_data = get_wisata()
-    asuransi_data = get_asuransi()
 
-    combined_data = []
-    for wisata in wisata_data:
-        for asuransi in asuransi_data:
-            combined_obj = {
-                "id_wisata": wisata['id_wisata'],
-                "nama_objek": wisata['nama_objek'],
-                "asuransi": asuransi
-            }
-            combined_data.append(combined_obj)
-
-    return combined_data
-
-class WisataAsuransi(BaseModel):
-    id_wisata: str
-    nama_objek: str
-    asuransi: Asuransi
-
-@app.get("/wisataAsuransi", response_model=List[WisataAsuransi])
-def get_combined_data():
-    combined_data = combine_wisata_asuransi()
-    return combined_data
-'''
 def combine_wisata_hotel():
     wisata_data = get_wisata()
     hotel_data = get_hotel()
