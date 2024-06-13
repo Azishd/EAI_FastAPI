@@ -222,12 +222,12 @@ def get_hotel():
 
 # Fungsi untuk mengambil data bank dari web hosting lain
 def get_data_bank_from_web():
-    url = "https://example.com/api/pajak"  # Ganti dengan URL yang sebenarnya
+    url = "https://jumantaradev.my.id/"  # Ganti dengan URL yang sebenarnya
     response = requests.get(url)
     if response.status_code == 200:
         return response.json()
     else:
-        raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data BANK dari web hosting.")
+        raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data Bank dari web hosting.")
 
 # Model untuk Data Bank
 class Bank(BaseModel):
