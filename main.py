@@ -101,14 +101,14 @@ def get_Government():
     data_Government = get_data_Government_from_web()
     return data_Government
 
-# Fungsi untuk mengambil data Goverment dari web hosting lain
-def get_data_pajak_from_web():
-    url = "https://api-government.onrender.com/"  # Ganti dengan URL yang sebenarnya
-    response = requests.get(url)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data Goverment dari web hosting.")
+# Mengambil data spesifik dengan NIK
+@app.get("/penduduk/{nik}", response_model=Optional[Government])
+def get_penduduk_by_nik(nik: int):
+    data_Government = get_data_Government_from_web()
+    for government in data_Government:
+        if government['nik'] == nik:
+            return Government(**government)
+    return None
 
 # Model untuk Data Pajak
 class Pajak(BaseModel):
