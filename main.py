@@ -291,14 +291,6 @@ def get_combined_data():
     combined_data = combine_wisata_pajak()
     return combined_data
 
-class asuransiTourGuide(BaseModel):
-    id_asuransi: str
-    jenis_asuransi: str
-    premi: str
-    keterangan: str
-    tourguide:TourGuide
-
-
 def combine_asuransi_tour_guide():
     data_asuransi = get_asuransi()
     data_tourGuide = get_tourGuide()
@@ -317,9 +309,16 @@ def combine_asuransi_tour_guide():
 
     return combined_data
 
-@app.get("/asuransiTourGuide", response_model=List[asuransiTourGuide])
+class asuransiTourGuide(BaseModel):
+    id_asuransi: str
+    jenis_asuransi: str
+    premi: str
+    keterangan: str
+    tourguide:TourGuide
+
+@app.get("/asuransitourguide", response_model=List[asuransiTourGuide])
 def get_combined_data():
-    combined_data = asuransiTourGuide()
+    combined_data = combine_asuransi_tour_guide()
     return combined_data
 '''
 def combine_wisata_asuransi():
