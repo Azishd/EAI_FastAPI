@@ -249,14 +249,15 @@ class Bank(BaseModel):
     nama : str
     kategori: str
     jumlah: int
+    tagihan: int
 
 # Dummy data untuk asuransi-bank
 data_bank = [
-    {"id_asuransi": 116, "id_bayar": 201, "nama": "Ali", "kategori": "Kendaraan", "jumlah": 60},
-    {"id_asuransi": 117, "id_bayar": 202, "nama": "Sandra", "kategori": "Furniture", "jumlah": 60},
-    {"id_asuransi": 118, "id_bayar": 203, "nama": "Joseph", "kategori": "Kendaraan", "jumlah": 50},
-    {"id_asuransi": 119, "id_bayar": 204, "nama": "Lisa", "kategori": "Kesehatan", "jumlah": 10},
-    {"id_asuransi": 120, "id_bayar": 205, "nama": "Bagas", "kategori": "Kesehatan", "jumlah": 10},
+    {"id_asuransi": 116, "id_bayar": 201, "nama": "Ali", "kategori": "Kendaraan", "jumlah": 60, "tagihan": 100000},
+    {"id_asuransi": 117, "id_bayar": 202, "nama": "Sandra", "kategori": "Furniture", "jumlah": 60, "tagihan": 200000},
+    {"id_asuransi": 118, "id_bayar": 203, "nama": "Joseph", "kategori": "Kendaraan", "jumlah": 50, "tagihan": 150000},
+    {"id_asuransi": 119, "id_bayar": 204, "nama": "Lisa", "kategori": "Kesehatan", "jumlah": 10, "tagihan": 150000},
+    {"id_asuransi": 120, "id_bayar": 205, "nama": "Bagas", "kategori": "Kesehatan", "jumlah": 10, "tagihan": 100000},
 ]
 
 # Endpoint untuk menambahkan data asuransi-bank
