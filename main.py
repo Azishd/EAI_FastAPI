@@ -281,6 +281,8 @@ def combine_asuransi_tour_guide():
                 "jenis_asuransi": asuransi['jenis_asuransi'],
                 "premi": asuransi['premi'],
                 "keterangan": asuransi['keterangan'],
+                "tanggal_mulai_asuransi" : asuransi['tanggal_mulai_asuransi'],
+                "tanggal_selesai_asuransi" : asuransi['tanggal_selesai_asuransi'],
                 "tourguide":tour_guide
             }
             combined_data.append(combined_obj)
@@ -292,6 +294,8 @@ class asuransiTourGuide(BaseModel):
     jenis_asuransi: str
     premi: str
     keterangan: str
+    tanggal_mulai_asuransi : str
+    tanggal_selesai_asuransi : str
     tourguide:TourGuide
 
 @app.get("/asuransitourguide", response_model=List[asuransiTourGuide])
