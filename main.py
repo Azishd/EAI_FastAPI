@@ -196,6 +196,21 @@ def get_Mobil():
     data_Mobil = get_data_Mobil_from_web()
     return data_Mobil
 
+def get_Mobil_index(id_guider):
+    data_Mobil = get_data_Mobil_from_web()
+    for index, mobil in enumerate(data_Mobil):
+        if mobil['id_guider'] == id_guider:
+            return index
+    return None
+
+@app.get("/mobil/{id_guider}", response_model=Optional[Mobil])
+def get_Mobil_by_id(id_guider: str):
+    data_Mobil = get_data_Mobil_from_web()
+    for mobil in data_Mobil:
+        if mobil['id_guider'] == id_guider:
+            return Mobil(**mobil)
+    return None
+
 
 # Model untuk Data Hotel
 class Hotel(BaseModel):
