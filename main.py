@@ -110,32 +110,6 @@ def get_penduduk_by_nik(nik: int):
             return Government(**government)
     return None
 
-# Model untuk Data Pajak
-class Pajak(BaseModel):
-    id_pajak: str
-    besar_pajak: float
-
-# Endpoint untuk mendapatkan data pajak
-@app.get("/pajak", response_model=List[Pajak])
-def get_pajak():
-    data_pajak = get_data_pajak_from_web()
-    return data_pajak
-
-def get_pajak_index(id_pajak):
-    data_pajak = get_data_pajak_from_web()
-    for index, pajak in enumerate(data_pajak):
-        if pajak['id_pajak'] == id_pajak:
-            return index
-    return None
-
-@app.get("/pajak/{id_pajak}", response_model=Optional[Pajak])
-def get_pajak_by_id(id_pajak: str):
-    data_pajak = get_data_pajak_from_web()
-    for pajak in data_pajak:
-        if pajak['id_pajak'] == id_pajak:
-            return Pajak(**pajak)
-    return None
-
 # Model untuk Data Tour Guide
 class TourGuide(BaseModel):
     id_guider:str
@@ -359,32 +333,6 @@ def delete_bank(id_asuransi: str):
     else:
         raise HTTPException(status_code=404, detail="Data bank tidak ditemukan.")
 
-def combine_wisata_pajak():
-    wisata_data = get_wisata()
-    pajak_data = get_pajak()
-
-    combined_data = []
-    for wisata in wisata_data:
-        for pajak in pajak_data:
-            combined_obj = {
-                "id_wisata": wisata['id_wisata'],
-                "nama_objek": wisata['nama_objek'],
-                "pajak": pajak
-            }
-            combined_data.append(combined_obj)
-
-    return combined_data
-
-class AsuransiPajak(BaseModel):
-    id_wisata: str
-    nama_objek: str
-    pajak: Pajak
-
-@app.get("/asuransiPajak", response_model=List[AsuransiPajak])
-def get_combined_data():
-    combined_data = combine_wisata_pajak()
-    return combined_data
-
 def combine_asuransi_tour_guide():
     data_asuransi = get_asuransi()
     data_tourGuide = get_tourGuide()
@@ -449,6 +397,7 @@ def get_combined_data():
     combined_data = combine_asuransi_hotel()
     return combined_data
 
+'''
 def combine_wisata_bank():
     wisata_data = get_wisata()
     bank_data = get_bank()
@@ -474,3 +423,4 @@ class AsuransiBank(BaseModel):
 def get_combined_data():
     combined_data = combine_wisata_bank()
     return combined_data
+'''
