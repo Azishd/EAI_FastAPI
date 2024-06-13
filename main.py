@@ -259,12 +259,12 @@ def combine_wisata_pajak():
 
     return combined_data
 
-class WisataPajak(BaseModel):
+class AsuransiPajak(BaseModel):
     id_wisata: str
     nama_objek: str
     pajak: Pajak
 
-@app.get("/wisataPajak", response_model=List[WisataPajak])
+@app.get("/asuransiPajak", response_model=List[AsuransiPajak])
 def get_combined_data():
     combined_data = combine_wisata_pajak()
     return combined_data
@@ -315,12 +315,12 @@ def combine_wisata_hotel():
 
     return combined_data
 
-class WisataHotel(BaseModel):
+class AsuransiHotel(BaseModel):
     id_wisata: str
     nama_objek: str
     hotel: Hotel
 
-@app.get("/wisataHotel", response_model=List[WisataHotel])
+@app.get("/asuransiHotel", response_model=List[AsuransiHotel])
 def get_combined_data():
     combined_data = combine_wisata_hotel()
     return combined_data
@@ -341,12 +341,12 @@ def combine_wisata_bank():
 
     return combined_data
 
-class WisataBank(BaseModel):
+class AsuransiBank(BaseModel):
     id_wisata: str
     nama_objek: str
     bank: Bank
 
-@app.get("/wisataBank", response_model=List[WisataBank])
+@app.get("/asuransiBank", response_model=List[AsuransiBank])
 def get_combined_data():
     combined_data = combine_wisata_bank()
     return combined_data
