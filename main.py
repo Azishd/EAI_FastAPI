@@ -215,11 +215,7 @@ def get_objekwisata_by_id(id_wisata: str):
 # Model untuk Data Tour Guide
 class Mobil(BaseModel):
     id_mobil:str
-    merek: str
-    model: str
-    tipe_mobil: str
-    nomor_polisi: str
-
+    
 # Fungsi untuk mengambil data 
 # guide dari web hosting lain
 def get_data_Mobil_from_web():
