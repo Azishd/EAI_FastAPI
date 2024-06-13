@@ -91,8 +91,7 @@ def get_data_Government_from_web():
     url = "https://api-government.onrender.com/penduduk"  # Ganti dengan URL yang sebenarnya
     response = requests.get(url)
     if response.status_code == 200:
-        data = response.json()
-        return [Government(**item) for item in data]
+        return response.json()
     else:
         raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data penduduk dari web hosting.")
 
@@ -209,8 +208,7 @@ def get_data_Mobil_from_web():
     url = "https://rental-mobil-api.onrender.com/mobil"  # Ganti dengan URL yang sebenarnya
     response = requests.get(url)
     if response.status_code == 200:
-        data=response.json()
-        return [Mobil(**item) for item in data]
+        return response.json()
     else:
         raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data Mobil dari web hosting.")
 
