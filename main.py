@@ -196,18 +196,18 @@ def get_Mobil():
     data_Mobil = get_data_Mobil_from_web()
     return data_Mobil
 
-def get_Mobil_index(id_guider):
+def get_Mobil_index(id_mobil):
     data_Mobil = get_data_Mobil_from_web()
     for index, mobil in enumerate(data_Mobil):
-        if mobil['id_guider'] == id_guider:
+        if mobil['id_mobil'] == id_mobil:
             return index
     return None
 
 @app.get("/mobil/{id_guider}", response_model=Optional[Mobil])
-def get_Mobil_by_id(id_guider: str):
+def get_Mobil_by_id(id_mobil: str):
     data_Mobil = get_data_Mobil_from_web()
     for mobil in data_Mobil:
-        if mobil['id_guider'] == id_guider:
+        if mobil['id_mobil'] == id_mobil:
             return Mobil(**mobil)
     return None
 
