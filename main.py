@@ -173,6 +173,46 @@ def get_tourguide_by_id(id_guider: str):
     return None
 
 # Model untuk Data Tour Guide
+class ObjekWisata(BaseModel):
+    id_wisata:str
+    nama_objek: str
+    alamat: str
+    kontak: str
+
+# Fungsi untuk mengambil data 
+# guide dari web hosting lain
+def get_data_objekWisata_from_web():
+    url = "https://pajakobjekwisata.onrender.com/wisata"  # Ganti dengan URL yang sebenarnya
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data Objek Wisata dari web hosting.")
+
+# Endpoint untuk mendapatkan data Tour Guide
+@app.get("/objekwisata", response_model=List[ObjekWisata])
+def get_objekWisata():
+    data_objekwisata = get_data_objekWisata_from_web()
+    return data_objekwisata
+
+def get_objekWisata_index(id_wisata):
+    data_objekwisata = get_data_objekWisata_from_web()
+    for index, objekwisata in enumerate(data_objekwisata):
+        if objekwisata['id_wisata'] == id_wisata:
+            return index
+    return None
+
+@app.get("/objekwisata/{id_wisata}", response_model=Optional[ObjekWisata])
+def get_objekwisata_by_id(id_wisata: str):
+    data_objekwisata = get_data_objekWisata_from_web()
+    for objekwisata in data_objekwisata:
+        if objekwisata['id_wisata'] == id_wisata:
+            return ObjekWisata(**objekwisata)
+    return None
+
+
+
+# Model untuk Data Tour Guide
 class Mobil(BaseModel):
     id_mobil:str
     merek: str
