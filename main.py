@@ -292,9 +292,12 @@ def get_combined_data():
     return combined_data
 
 class asuransiTourGuide(BaseModel):
-    id_guider : str
-    nama_guider : str
-    asuransi : Asuransi
+    id_asuransi: str
+    jenis_asuransi: str
+    premi: str
+    keterangan: str
+    tourguide:TourGuide
+
 
 def combine_asuransi_tour_guide():
     data_asuransi = get_asuransi()
@@ -304,9 +307,11 @@ def combine_asuransi_tour_guide():
     for asuransi in data_asuransi:
         for tour_guide in data_tourGuide:
             combined_obj = {
-                "id_guider": tour_guide['id_guider'],
-                "nama_guider": tour_guide['nama_guider'],
-                "asuransi" : asuransi
+                "id_asuransi": asuransi['id_asuransi'],
+                "jenis_asuransi": asuransi['jenis_asuransi'],
+                "premi": asuransi['premi'],
+                "keterangan": asuransi['keterangan'],
+                "tourguide":tour_guide
             }
             combined_data.append(combined_obj)
 
