@@ -166,6 +166,15 @@ def get_tourGuide_index(id_guider):
             return index
     return None
 
+@app.get("/tourguide/{id_guider}", response_model=Optional[TourGuide])
+def get_tourguide_by_id(id_guider: str):
+    data_tourguide = get_data_tourGuide_from_web()
+    for tourguide in data_tourguide:
+        if tourguide['id_guider'] == id_guider:
+            return TourGuide(**tourguide)
+    return None
+
+
 # Fungsi untuk mengambil data wisata dari web hosting lain
 '''def get_data_wisata_from_web():
     url = "https://example.com/api/pajak"  # Ganti dengan URL yang sebenarnya
