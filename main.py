@@ -288,7 +288,7 @@ def get_bank_index(id_bank):
 def get_bank_by_id(id_asuransi: int):
     for bank in data_bank:
         if bank['id_asuransi'] == id_asuransi:
-            return bank(**bank)
+            return Bank(**bank)
     return None
 
 # Endpoint untuk memperbarui data wisata dengan hanya memasukkan id_wisata
