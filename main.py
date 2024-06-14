@@ -275,12 +275,7 @@ def tambah_asuransi(bank: Bank):
 # Endpoint untuk mendapatkan data bank
 @app.get("/bank", response_model=List[Bank])
 def get_bank():
-    url = "https://jumantaradev.my.id/api/asuransi"  # Ganti dengan URL yang sebenarnya
-    response = requests.get(url)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        raise HTTPException(status_code=response.status_code, detail="Gagal mengambil data pembayaran dari web hosting.")
+    return data_bank
 
 def get_bank_index(id_bank):
     for index, bank in enumerate(data_bank):
